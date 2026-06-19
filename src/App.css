@@ -1,0 +1,70 @@
+.btn-counter {
+  padding:0.5rem;
+  font-weight: 700;
+}
+.btns {
+  margin-top: 0.25rem;
+  filter: invert(70%) sepia(90%) ;
+}
+.tree-icon {
+  filter: invert(80%) ;
+}
+
+.tree-icon-stopwatch {
+  filter: invert(70%) sepia(90%) ;
+}
+.tree-icon-detail {
+
+  filter: invert(70%) sepia(90%) ;
+  float:right
+}
+
+.tree-detail {
+  position: absolute;
+  z-index: 1;
+  top:25vh;
+  left:25vw;
+  height:50vh;
+  width:50vw;
+  background-color: rgba(137, 43, 226, 0.838);
+  padding:1rem;
+  font-size: larger;
+  color:black
+}
+
+.imp {
+  color: blanchedalmond;
+}
+
+.hellapadding {
+  padding-top: 2rem;
+}
+
+.detail-close-btn {
+  float:right;
+  background-color: black;
+}
+
+[role="tooltip"] {
+  visibility: hidden;
+  /* position: absolute;
+  top: 2rem; */
+  /* left: 2rem; */
+  background: black;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  /* Give some time before hiding so mouse can exit the input
+  and enter the tooltip */
+  transition: visibility 0.5s;
+}
+[aria-describedby]:hover,
+[aria-describedby]:focus {
+  position: relative;
+}
+[aria-describedby]:hover + [role="tooltip"],
+[aria-describedby]:focus + [role="tooltip"],
+[role="tooltip"]:hover,
+[role="tooltip"]:focus {
+  visibility: visible;
+}
