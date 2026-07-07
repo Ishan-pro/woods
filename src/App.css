@@ -2,6 +2,20 @@
   padding:0.5rem;
   font-weight: 700;
 }
+.navlink {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: aliceblue;
+}
+.chart {
+  height: 80vh;
+  width:80vw;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  margin-top:10vh
+}
 .btns {
   margin-top: 0.25rem;
   filter: invert(70%) sepia(90%) ;
@@ -12,6 +26,10 @@
 
 .tree-icon-stopwatch {
   filter: invert(70%) sepia(90%) ;
+
+  animation-name: growanimation;
+  animation-duration: 10s;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .tree-icon-detail {
 
@@ -32,6 +50,15 @@
   color:black
 }
 
+@keyframes growanimation {
+  from {
+    width: 10px;
+  }
+  to {
+    width:100px
+  }
+}
+
 .imp {
   color: blanchedalmond;
 }
@@ -43,6 +70,10 @@
 .detail-close-btn {
   float:right;
   background-color: black;
+}
+
+.tree-input {
+  padding: 0.3rem;
 }
 
 [role="tooltip"] {

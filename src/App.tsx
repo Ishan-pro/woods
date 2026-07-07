@@ -6,8 +6,9 @@ import { newTree, type Tree } from "./reducers"
 import tree from './assets/tree.svg'
 import './App.css'
 import moment from "moment"
+import { Link } from "react-router"
 
-const formatTime =(seconds:number)=> {
+export const formatTime =(seconds:number)=> {
     const hours = (Math.floor(seconds / 3600))==0 ? false :Math.floor(seconds / 3600) ;
     const minutes = (Math.floor((seconds % 3600) / 60))==0 ? false :Math.floor((seconds % 3600)/60);
     const remainingSeconds = (seconds % 60).toFixed(0);
@@ -81,6 +82,7 @@ function App() {
   return (
     <main>
       <h1>Grow your Woods</h1>
+      <Link to="/detail" className="navlink">Dashboard</Link>
       {!(expandTree===false) && treeExpandView(expandTree)}
       {!stopwatchOn && <div className="tree-field" style={{
         
@@ -102,7 +104,7 @@ function App() {
       <div style={{margin:"4rem"}}>
 
       
-      <input value={treeLabel} onChange={(e) => {setTreeLabel(e.target.value)}}></input>
+      <input value={treeLabel} placeholder="What are you working on?" onChange={(e) => {setTreeLabel(e.target.value)}} className="tree-input"></input>
       <div className="btns">
         <button onClick={() => {
 
@@ -110,7 +112,7 @@ function App() {
           setInitialTime(Date.now()/1000)
 
           }} className="btn-counter">{!stopwatchOn ? "Grow it" : "Burn it"}</button>
-        <button onClick={makeTree} className="btn-counter">Plant it</button>
+        {stopwatchOn && <button onClick={makeTree} className="btn-counter">Done!</button>}
       </div>
       <p style={{margin:"3rem"}}> {stopwatchOn && "Time Elapsed " + formatTime(stopwatchTime) + " working on " +treeLabel}</p>
       </div>
