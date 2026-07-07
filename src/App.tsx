@@ -17,12 +17,11 @@ export const formatTime =(seconds:number)=> {
 
 const renderTrees = (i:Tree, k:number, n:number, setExpandTree:React.Dispatch<React.SetStateAction<number|false>>) => {
   // const [visibleLabel, setVisibleLabel] = useState(false)
-  console.log(n)
+  
   const plottingalgorithm = (a:number) => {
     const noOfGrids = (n % 2 ==0) ? n+=1 : n+=2
-    console.log({noOfGrids})
+    
     const coordinate = ((a %2 ==0) ? (noOfGrids+1)/2 -a/2 : (noOfGrids+1)/2 +a)
-    console.log("id is " + a.toString() + " coordinate is " + coordinate.toString() )
     return coordinate
   }
 
@@ -67,7 +66,7 @@ function App() {
 
 
   const store = [ ...useSelector((state:RootState) => state.trees)]
-  console.log(`Store length is ${store.length}`)
+  
 
   const makeTree = () => {
     if (stopwatchTime !==0) {
