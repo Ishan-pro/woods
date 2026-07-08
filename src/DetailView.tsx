@@ -1,13 +1,9 @@
-import type { Tree } from "./reducers"
 import type { RootState } from "./store"
 import { useSelector } from "react-redux"
-import moment from "moment"
-import { formatTime } from "./App"
-import { Pie, Doughnut } from "react-chartjs-2"
+import { Pie } from "react-chartjs-2"
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Colors } from "chart.js"
 import { Link } from "react-router"
-import { useState } from "react"
 
 
 
@@ -16,10 +12,10 @@ export default function DetailView() {
 
   const store = [ ...useSelector((state:RootState) => state.trees)]
   const chartdata = {
-    labels: store.map((i,t) => i.label),
+    labels: store.map((i) => i.label),
     datasets: [
         {
-            data:store.map((i, t)=> i.duration / 60),
+            data:store.map((i)=> i.duration / 60),
             label:'Minutes Worked',
             borderWidth:1,
         }
