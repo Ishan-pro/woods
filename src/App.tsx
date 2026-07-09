@@ -34,7 +34,7 @@ const renderTrees = (i:Tree, k:number, n:number, setExpandTree:React.Dispatch<Re
     >
 
       <img src={tree} width={100} aria-describedby={`${k}label`} className="tree-icon"></img>
-      <div role="tooltip" id={`${k}label`}>{i.label} for {formatTime(i.duration)} id {k} </div>
+      <div role="tooltip" id={`${k}label`}>{i.label} for {formatTime(i.duration)} </div>
     </div>
   )
 }
