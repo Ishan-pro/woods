@@ -111,7 +111,7 @@ function App() {
         )}
       </div>}
       {stopwatchOn && <img src={tree} width={100} className="tree-icon-stopwatch"></img>}
-      <div style={{margin:"4rem"}}>
+      <div style={{margin:"1.5rem 1rem", display:"flex", flexDirection:"column", alignItems:"center", gap:"0.5rem"}}>
 
       
       <input value={treeLabel} placeholder="What are you working on?" onChange={(e) => {setTreeLabel(e.target.value)}} className="tree-input"></input>
@@ -119,7 +119,7 @@ function App() {
         <button onClick={toggleStopwatch} className={`btn-counter ${stopwatchOn ? 'btn-burn' : 'btn-grow'}`}>{!stopwatchOn ? "Grow it" : "Burn it"}</button>
         {stopwatchOn && <button onClick={makeTree} className="btn-counter btn-done">Done!</button>}
       </div>
-      <p style={{margin:"3rem"}}> {stopwatchOn && "Time Elapsed " + formatTime(stopwatchTime) + " working on " +treeLabel}</p>
+      <p style={{margin:"0.5rem", fontSize:"0.9rem"}}> {stopwatchOn && "Time Elapsed " + formatTime(stopwatchTime) + " working on " +treeLabel}</p>
       </div>
     </main>
   )
