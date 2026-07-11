@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import type { RootState } from "./store"
@@ -8,9 +8,9 @@ import './App.css'
 import moment from "moment"
 import { Link } from "react-router"
 
-export const formatTime =(seconds:number)=> {
-    const hours = (Math.floor(seconds / 3600))==0 ? false :Math.floor(seconds / 3600) ;
-    const minutes = (Math.floor((seconds % 3600) / 60))==0 ? false :Math.floor((seconds % 3600)/60);
+const formatTime =(seconds:number)=> {
+    const hours = (Math.floor(seconds / 3600))===0 ? false :Math.floor(seconds / 3600) ;
+    const minutes = (Math.floor((seconds % 3600) / 60))===0 ? false :Math.floor((seconds % 3600)/60);
     const remainingSeconds = (seconds % 60).toFixed(0);
     return `${!hours ? "" : hours +"h"} ${!minutes ? "" : minutes +"m"} ${remainingSeconds}s`;
 }
@@ -19,9 +19,9 @@ const renderTrees = (i:Tree, k:number, n:number, setExpandTree:React.Dispatch<Re
   // const [visibleLabel, setVisibleLabel] = useState(false)
   
   const plottingalgorithm = (a:number) => {
-    const noOfGrids = (n % 2 ==0) ? n+=1 : n+=2
+    const noOfGrids = (n % 2 ===0) ? n + 1 : n + 2
     
-    const coordinate = ((a %2 ==0) ? (noOfGrids+1)/2 -a/2 : (noOfGrids+1)/2 +a)
+    const coordinate = ((a %2 ===0) ? (noOfGrids+1)/2 -a/2 : (noOfGrids+1)/2 +a)
     return coordinate
   }
 
@@ -45,7 +45,7 @@ function App() {
   const [initialTime, setInitialTime] = useState<number>(0)
   const [stopwatchOn, setStopwatchOn] = useState<boolean>(false)
   const [expandTree, setExpandTree] = useState<false|number>(false)
-  const stopwatchTime = Stopwatch(stopwatchOn ? initialTime : 0)
+  const stopwatchTime = useStopwatch(stopwatchOn ? initialTime : null)
   const dispatch = useDispatch()
 
 
@@ -77,6 +77,17 @@ function App() {
     }
     
   }
+
+  const toggleStopwatch = () => {
+    if (stopwatchOn) {
+      setStopwatchOn(false)
+      setInitialTime(0)
+      return
+    }
+
+    setInitialTime(Date.now()/1000)
+    setStopwatchOn(true)
+  }
   
   return (
     <main>
@@ -87,7 +98,7 @@ function App() {
         
         display:"grid",
         width:"100%",
-        gridTemplateColumns:"1fr ".repeat((store.length % 2 ==0) ? store.length+=1 : store.length+=2),
+        gridTemplateColumns:"1fr ".repeat((store.length % 2 ===0) ? store.length + 1 : store.length + 2),
         gridTemplateRows: "1fr",
 
         overflowX:"clip"
@@ -105,12 +116,7 @@ function App() {
       
       <input value={treeLabel} placeholder="What are you working on?" onChange={(e) => {setTreeLabel(e.target.value)}} className="tree-input"></input>
       <div className="btns">
-        <button onClick={() => {
-
-          setStopwatchOn(t => !t)
-          setInitialTime(Date.now()/1000)
-
-          }} className="btn-counter">{!stopwatchOn ? "Grow it" : "Burn it"}</button>
+        <button onClick={toggleStopwatch} className="btn-counter">{!stopwatchOn ? "Grow it" : "Burn it"}</button>
         {stopwatchOn && <button onClick={makeTree} className="btn-counter">Done!</button>}
       </div>
       <p style={{margin:"3rem"}}> {stopwatchOn && "Time Elapsed " + formatTime(stopwatchTime) + " working on " +treeLabel}</p>
@@ -119,23 +125,28 @@ function App() {
   )
 }
 
-const Stopwatch = (initialTime:number) => {
-  const [timeElapsed, setTimeElapsed] = useState<number>(0)
-  setTimeout(() => {
-    setTimeElapsed(() => {
-      if (initialTime ==0) {
-        return 0
-      } else {
-      const n = Date.now()/1000
-      return (n - initialTime)
-      }
+const useStopwatch = (initialTime:number | null) => {
+  const [now, setNow] = useState<number>(() => Date.now()/1000)
+
+  useEffect(() => {
+    if (initialTime === null) {
+      return
     }
-    )
-  }, 1000)
+
+    const intervalId = window.setInterval(() => {
+      setNow(Date.now()/1000)
+    }, 1000)
+
+    return () => {
+      window.clearInterval(intervalId)
+    }
+  }, [initialTime])
+
+  if (initialTime === null) {
+    return 0
+  }
   
-  return (
-    timeElapsed
-  )
+  return Math.max(0, now - initialTime)
 }
 
 export default App
