@@ -1,15 +1,20 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  --text: #3e2723;
+  --text-h: #5d4037;
+  --bg: #f2e8d5;
+  --border: #bcaaa4;
+  --code-bg: #e8d8c8;
+  --accent: #a28a66;
+  --accent-bg: rgba(162, 138, 106, 0.1);
+  --accent-border: rgba(162, 138, 106, 0.5);
+  --social-bg: rgba(247, 245, 238, 0.5);
+  --surface: #fffdf7;
+  --earth: #8b5e34;
+  --burn: #c75c2a;
+  --error: #a74f4f;
+
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(0, 0, 0, 0.15) 0 10px 15px -3px, rgba(0, 0, 0, 0.1) 0 4px 6px -2px;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -32,21 +37,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
+    --text: #d7ccc8;
+    --text-h: #efebe9;
+    --bg: #3e2723;
+    --border: #5d4037;
+    --code-bg: #4e342e;
+    --accent: #d4a373;
+    --accent-bg: rgba(212, 163, 115, 0.15);
+    --accent-border: rgba(212, 163, 115, 0.5);
+    --social-bg: rgba(93, 64, 55, 0.5);
+    --surface: #4e342e;
+    --earth: #d9a441;
+    --burn: #c75c2a;
+    --error: #d16d6d;
     --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+      rgba(0, 0, 0, 0.5) 0 10px 15px -3px, rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
   }
 }
 

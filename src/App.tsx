@@ -116,8 +116,8 @@ function App() {
       
       <input value={treeLabel} placeholder="What are you working on?" onChange={(e) => {setTreeLabel(e.target.value)}} className="tree-input"></input>
       <div className="btns">
-        <button onClick={toggleStopwatch} className="btn-counter">{!stopwatchOn ? "Grow it" : "Burn it"}</button>
-        {stopwatchOn && <button onClick={makeTree} className="btn-counter">Done!</button>}
+        <button onClick={toggleStopwatch} className={`btn-counter ${stopwatchOn ? 'btn-burn' : 'btn-grow'}`}>{!stopwatchOn ? "Grow it" : "Burn it"}</button>
+        {stopwatchOn && <button onClick={makeTree} className="btn-counter btn-done">Done!</button>}
       </div>
       <p style={{margin:"3rem"}}> {stopwatchOn && "Time Elapsed " + formatTime(stopwatchTime) + " working on " +treeLabel}</p>
       </div>

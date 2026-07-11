@@ -1,12 +1,60 @@
 .btn-counter {
-  padding:0.5rem;
+  padding: 0.75rem 1.5rem;
   font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+.btn-counter:hover {
+  background-color: var(--text-h);
+}
+
+/* "Grow it" button - green for growth */
+.btn-grow {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+.btn-grow:hover {
+  background-color: #8a6b4f;
+  color: #fffdf7;
+}
+
+/* "Burn it" button - burnt orange for cancel */
+.btn-burn {
+  background-color: var(--burn);
+  color: #ffffff;
+}
+
+.btn-burn:hover {
+  background-color: #9c4433;
+  color: #fffdf7;
+}
+
+/* "Done!" button - earth brown for completion */
+.btn-done {
+  background-color: var(--earth);
+  color: #ffffff;
+}
+
+.btn-done:hover {
+  background-color: #6d4c2f;
+  color: #fffdf7;
 }
 .navlink {
   position: absolute;
   top: 10px;
   right: 10px;
-  color: aliceblue;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
 }
 .chart {
   height: 80vh;
@@ -18,22 +66,24 @@
 }
 .btns {
   margin-top: 0.25rem;
-  filter: invert(70%) sepia(90%) ;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
 }
+
 .tree-icon {
-  filter: invert(80%) ;
+  filter: sepia(30%) saturate(140%) hue-rotate(10deg) brightness(90%);
 }
 
 .tree-icon-stopwatch {
-  filter: invert(70%) sepia(90%) ;
-
+  filter: sepia(30%) saturate(140%) hue-rotate(10deg) brightness(90%);
   animation-name: growanimation;
   animation-duration: 10s;
   animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.tree-icon-detail {
 
-  filter: invert(70%) sepia(90%) ;
+.tree-icon-detail {
+  filter: sepia(30%) saturate(140%) hue-rotate(10deg) brightness(90%);
   float:right
 }
 
@@ -44,10 +94,13 @@
   left:25vw;
   height:50vh;
   width:50vw;
-  background-color: rgba(137, 43, 226, 0.838);
+  background-color: var(--surface);
   padding:1rem;
   font-size: larger;
-  color:black
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: 8px;
 }
 
 @keyframes growanimation {
@@ -60,7 +113,8 @@
 }
 
 .imp {
-  color: blanchedalmond;
+  color: var(--earth);
+  font-weight: 600;
 }
 
 .hellapadding {
@@ -69,25 +123,38 @@
 
 .detail-close-btn {
   float:right;
-  background-color: black;
+  background-color: var(--burn);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .tree-input {
-  padding: 0.3rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background-color: var(--code-bg);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.tree-input::placeholder {
+  color: var(--text);
+  opacity: 0.6;
 }
 
 [role="tooltip"] {
   visibility: hidden;
-  /* position: absolute;
-  top: 2rem; */
-  /* left: 2rem; */
-  background: black;
-  color: white;
+  background: var(--text-h);
+  color: var(--surface);
   padding: 0.5rem;
   border-radius: 0.25rem;
-  /* Give some time before hiding so mouse can exit the input
-  and enter the tooltip */
   transition: visibility 0.5s;
+  font-size: 0.875rem;
+  box-shadow: var(--shadow);
 }
 [aria-describedby]:hover,
 [aria-describedby]:focus {
