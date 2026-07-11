@@ -15,24 +15,9 @@ const formatTime =(seconds:number)=> {
     return `${!hours ? "" : hours +"h"} ${!minutes ? "" : minutes +"m"} ${remainingSeconds}s`;
 }
 
-const renderTrees = (i:Tree, k:number, n:number, setExpandTree:React.Dispatch<React.SetStateAction<number|false>>) => {
-  // const [visibleLabel, setVisibleLabel] = useState(false)
-  
-  const plottingalgorithm = (a:number) => {
-    const noOfGrids = (n % 2 ===0) ? n + 1 : n + 2
-    
-    const coordinate = ((a %2 ===0) ? (noOfGrids+1)/2 -a/2 : (noOfGrids+1)/2 +a)
-    return coordinate
-  }
-
+const renderTrees = (i:Tree, k:number, _n:number, setExpandTree:React.Dispatch<React.SetStateAction<number|false>>) => {
   return (
-    <div key={k} className="tree-block" style={{
-      gridColumn:plottingalgorithm(k),
-      gridRow:(Math.floor(k/5) +1),
-    }}
-    onClick={() => setExpandTree(k)}
-    >
-
+    <div key={k} className="tree-block" onClick={() => setExpandTree(k)}>
       <img src={tree} width={100} aria-describedby={`${k}label`} className="tree-icon"></img>
       <div role="tooltip" id={`${k}label`}>{i.label} for {formatTime(i.duration)} </div>
     </div>
@@ -94,22 +79,26 @@ function App() {
       <h1>Grow your Woods</h1>
       <Link to="/detail" className="navlink">Dashboard</Link>
       {!(expandTree===false) && treeExpandView(expandTree)}
-      {!stopwatchOn && <div className="tree-field" style={{
-        
-        display:"grid",
-        width:"100%",
-        gridTemplateColumns:"1fr ".repeat((store.length % 2 ===0) ? store.length + 1 : store.length + 2),
-        gridTemplateRows: "1fr",
-
-        overflowX:"clip"
-      }}>
-        {store.map(
-          (i, k) => {
-            const realLength = store.reduce(x=> x+1, 0) 
-            return renderTrees(i, k, realLength, setExpandTree)
-          }
-        )}
-      </div>}
+      {!stopwatchOn && (
+        <>
+          <div className="tree-field" style={{
+            display:"grid",
+            width:"100%",
+            gridTemplateColumns:"repeat(auto-fill, minmax(100px, 1fr))",
+            gap:"1rem",
+            justifyContent:"center"
+          }}>
+            {store.slice(0, 7).map(
+              (i, k) => {
+                return renderTrees(i, k, store.length, setExpandTree)
+              }
+            )}
+          </div>
+          {store.length > 7 && (
+            <Link to="/detail" className="btn-counter btn-load-more">Load More</Link>
+          )}
+        </>
+      )}
       {stopwatchOn && <img src={tree} width={100} className="tree-icon-stopwatch"></img>}
       <div style={{margin:"1.5rem 1rem", display:"flex", flexDirection:"column", alignItems:"center", gap:"0.5rem"}}>
 
