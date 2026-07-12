@@ -1,29 +1,33 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import type { RootState } from "./store"
 import { newTree, type Tree } from "./reducers"
+import { formatTime } from "./utils"
 import tree from './assets/tree.svg'
 import './App.css'
 import moment from "moment"
 import { Link } from "react-router"
 
-const formatTime =(seconds:number)=> {
-    const hours = (Math.floor(seconds / 3600))===0 ? false :Math.floor(seconds / 3600) ;
-    const minutes = (Math.floor((seconds % 3600) / 60))===0 ? false :Math.floor((seconds % 3600)/60);
-    const remainingSeconds = (seconds % 60).toFixed(0);
-    return `${!hours ? "" : hours +"h"} ${!minutes ? "" : minutes +"m"} ${remainingSeconds}s`;
-}
+const renderTrees = (i:Tree, k:number, n:number, setExpandTree:React.Dispatch<React.SetStateAction<number|false>>) => {
+  const plottingalgorithm = (a:number) => {
+    const noOfGrids = (n % 2 ==0) ? n+1 : n+2
+    const coordinate = ((a %2 ==0) ? (noOfGrids+1)/2 -a/2 : (noOfGrids+1)/2 +a)
+    return coordinate
+  }
 
-const renderTrees = (i:Tree, k:number, _n:number, setExpandTree:React.Dispatch<React.SetStateAction<number|false>>) => {
   return (
-    <div key={k} className="tree-block" onClick={() => setExpandTree(k)}>
+    <div key={k} className="tree-block" style={{
+      gridColumn:plottingalgorithm(k),
+      gridRow:(Math.floor(k/5) +1),
+    }}
+    onClick={() => setExpandTree(k)}
+    >
       <img src={tree} width={100} aria-describedby={`${k}label`} className="tree-icon"></img>
       <div role="tooltip" id={`${k}label`}>{i.label} for {formatTime(i.duration)} </div>
     </div>
   )
 }
-
 
 function App() {
   const [treeLabel, setTreeLabel] = useState<string>("")
@@ -33,9 +37,11 @@ function App() {
   const stopwatchTime = useStopwatch(stopwatchOn ? initialTime : null)
   const dispatch = useDispatch()
 
+  const trees = useSelector((state:RootState) => state.trees)
 
   const treeExpandView = (treeId:number)=> {
-    const detailedTree = store[treeId]
+    const detailedTree = trees[treeId]
+    if (!detailedTree) return null;
 
     const CreationDate = new Date(detailedTree.dateCreated *1000)
     return (
@@ -49,18 +55,13 @@ function App() {
     )
   }
 
-
-  const store = [ ...useSelector((state:RootState) => state.trees)]
-  
-
   const makeTree = () => {
-    if (stopwatchTime !==0) {
+    if (stopwatchTime !== 0) {
       dispatch(newTree({label:treeLabel, duration:stopwatchTime, dateCreated:initialTime}))
       setStopwatchOn(false)
       setInitialTime(0)
       setTreeLabel("")
     }
-    
   }
 
   const toggleStopwatch = () => {
@@ -88,13 +89,13 @@ function App() {
             gap:"1rem",
             justifyContent:"center"
           }}>
-            {store.slice(0, 7).map(
+            {trees.slice(0, 7).map(
               (i, k) => {
-                return renderTrees(i, k, store.length, setExpandTree)
+                return renderTrees(i, k, trees.length, setExpandTree)
               }
             )}
           </div>
-          {store.length > 7 && (
+          {trees.length > 7 && (
             <Link to="/detail" className="btn-counter btn-load-more">Load More</Link>
           )}
         </>
