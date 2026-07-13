@@ -10,17 +10,10 @@ import moment from "moment"
 import { Link } from "react-router"
 
 const renderTrees = (i:Tree, k:number, n:number, setExpandTree:React.Dispatch<React.SetStateAction<number|false>>) => {
-  const plottingalgorithm = (a:number) => {
-    const noOfGrids = (n % 2 ==0) ? n+1 : n+2
-    const coordinate = ((a %2 ==0) ? (noOfGrids+1)/2 -a/2 : (noOfGrids+1)/2 +a)
-    return coordinate
-  }
+  
 
   return (
-    <div key={k} className="tree-block" style={{
-      gridColumn:plottingalgorithm(k),
-      gridRow:(Math.floor(k/5) +1),
-    }}
+    <div key={k} className="tree-block"
     onClick={() => setExpandTree(k)}
     >
       <img src={tree} width={100} aria-describedby={`${k}label`} className="tree-icon"></img>
@@ -85,9 +78,9 @@ function App() {
           <div className="tree-field" style={{
             display:"grid",
             width:"100%",
-            gridTemplateColumns:"repeat(auto-fill, minmax(100px, 1fr))",
+            gridAutoFlow:"column",
             gap:"1rem",
-            justifyContent:"center"
+            justifyContent:"space-around"
           }}>
             {trees.slice(0, 7).map(
               (i, k) => {
