@@ -9,7 +9,7 @@ import './App.css'
 import moment from "moment"
 import { Link } from "react-router"
 
-const renderTrees = (i:Tree, k:number, n:number, setExpandTree:React.Dispatch<React.SetStateAction<number|false>>) => {
+const renderTrees = (i:Tree, k:number, setExpandTree:React.Dispatch<React.SetStateAction<number|false>>) => {
   
 
   return (
@@ -84,7 +84,7 @@ function App() {
           }}>
             {trees.slice(0, 7).map(
               (i, k) => {
-                return renderTrees(i, k, trees.length, setExpandTree)
+                return renderTrees(i, k, setExpandTree)
               }
             )}
           </div>

@@ -9,6 +9,7 @@ export interface Tree {
 const initialState = [] satisfies Tree[] as Tree[]
 
 export const newTree = createAction<Tree>('tree/newtree')
+export const deleteTree = createAction<Tree>('')
 
 export const treeReducer = createReducer(initialState, (builder) => {
     builder
